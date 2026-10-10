@@ -62,6 +62,12 @@ def list_loans(
     return loans
 
 
+@router.get("/overdue", response_model=list[Loan])
+def list_overdue_loans(store: StoreDep) -> list[Loan]:
+    today = date.today()
+    return [loan for loan in store.loans.values() if loan.is_active and loan.due_date < today]
+
+
 @router.get("/{loan_id}", response_model=Loan)
 def get_loan(loan_id: int, store: StoreDep) -> Loan:
     return _get_loan_or_404(loan_id, store)
