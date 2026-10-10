@@ -65,7 +65,6 @@ def test_get_loan_404_when_missing(client: TestClient) -> None:
     assert client.get("/loans/7").status_code == 404
 
 
-@pytest.mark.xfail(reason="Bug conocido: se puede prestar un libro ya prestado", strict=True)
 def test_cannot_loan_book_already_on_loan(client: TestClient, book: dict, member: dict) -> None:
     other = client.post("/members", json={"name": "Beto", "email": "beto@example.com"}).json()
     _loan(client, book["id"], member["id"])
