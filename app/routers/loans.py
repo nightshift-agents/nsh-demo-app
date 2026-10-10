@@ -25,6 +25,18 @@ def create_loan(payload: LoanCreate, store: StoreDep) -> Loan:
     if payload.member_id not in store.members:
         raise HTTPException(status.HTTP_404_NOT_FOUND, f"Socio {payload.member_id} no existe")
 
+    # Verificar que el libro no esté ya prestado
+    active_for_book = [
+        loan
+        for loan in store.loans.values()
+        if loan.book_id == payload.book_id and loan.is_active
+    ]
+    if active_for_book:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT,
+            f"El libro {payload.book_id} ya está prestado",
+        )
+
     active_for_member = [
         loan
         for loan in store.loans.values()
