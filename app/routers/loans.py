@@ -27,9 +27,7 @@ def create_loan(payload: LoanCreate, store: StoreDep) -> Loan:
 
     # Verificar que el libro no esté ya prestado
     active_for_book = [
-        loan
-        for loan in store.loans.values()
-        if loan.book_id == payload.book_id and loan.is_active
+        loan for loan in store.loans.values() if loan.book_id == payload.book_id and loan.is_active
     ]
     if active_for_book:
         raise HTTPException(
