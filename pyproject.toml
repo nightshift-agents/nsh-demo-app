@@ -5,6 +5,7 @@ description = "API de biblioteca de préstamos: piloto para agentes de código d
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
 dependencies = [
+    "email-validator>=2.0",
     "fastapi>=0.115",
     "uvicorn>=0.30",
 ]

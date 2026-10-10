@@ -23,7 +23,6 @@ def test_list_members(client: TestClient, member: dict) -> None:
     assert client.get("/members").json() == [member]
 
 
-@pytest.mark.xfail(reason="Pendiente: validar formato de member.email", strict=True)
 @pytest.mark.parametrize("email", ["no-es-un-correo", "sin-arroba.com", "@dominio.com"])
 def test_create_member_rejects_invalid_email(client: TestClient, email: str) -> None:
     response = client.post("/members", json={"name": "X", "email": email})
