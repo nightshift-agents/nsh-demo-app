@@ -1,6 +1,6 @@
 from datetime import date
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, EmailStr, Field
 
 
 class BookCreate(BaseModel):
@@ -16,7 +16,7 @@ class Book(BookCreate):
 
 class MemberCreate(BaseModel):
     name: str = Field(min_length=1, max_length=120)
-    email: str = Field(min_length=3, max_length=254)
+    email: EmailStr
 
 
 class Member(MemberCreate):
