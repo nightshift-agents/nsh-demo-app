@@ -73,7 +73,6 @@ def test_cannot_loan_book_already_on_loan(client: TestClient, book: dict, member
     assert response.status_code == 409
 
 
-@pytest.mark.xfail(reason="Pendiente: GET /loans/overdue no existe", strict=True)
 def test_list_overdue_loans(client: TestClient, book: dict, member: dict) -> None:
     client.post("/books", json={"title": "B", "author": "B", "isbn": "9780000000012"})
     yesterday = (date.today() - timedelta(days=1)).isoformat()
